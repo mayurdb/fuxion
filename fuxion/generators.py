@@ -88,7 +88,7 @@ def main(
     temperature: float = 0.5,
     cache: bool = False,
     verbose: bool = True,
-    model_name: str = "gpt-3.5-turbo",
+    model_name: str = "gpt-4",
 ):
     population = generate_population(few_shot_example_file=few_shot_example_file)
     few_shot = populate_few_shot(population=population, sample_size=sample_size)
