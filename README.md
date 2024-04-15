@@ -1,5 +1,10 @@
+
+```
+python generators.py /Users/mayurb/src/open/ai/fuxion/templates/generator/person.template /Users/mayurb/src/open/ai/fuxion/few_shot_examples/person.json
+```
+
 # fuxion
-LangChain + LLM powered data generation and normalization functions. 
+LangChain + LLM powered data generation and normalization functions.
 fuxion helps you generate a fully synthetic dataset with LLM APIs to train a task-specific model you can run on your own GPU.
 Preliminary models for name, price, and address standardization are available on [HuggingFace](https://huggingface.co/PragmaticMachineLearning).
 
@@ -23,24 +28,24 @@ We recommend that you create a virtual environment before proceeding with the in
   ```bash
   git clone git@github.com:Tobiadefami/fuxion.git
   ```
-- Install poetry: 
+- Install poetry:
   ```bash
-  pip install poetry  
+  pip install poetry
   ```
-- From the terminal, cd into the project directory and run: 
-  ```bash 
+- From the terminal, cd into the project directory and run:
+  ```bash
   poetry install
   ```
-- Add the following to your bashrc file and replace "your-key" with your OpenAI API key: 
+- Add the following to your bashrc file and replace "your-key" with your OpenAI API key:
   ```bash
   export OPENAI_API_KEY = "your-key"
-  ```   
+  ```
 
 # Usage
 
 A couple things to note:
 - The project directory contains two folders named `examples` and `templates`. These are folders that contain files for few-shot learning and the prompts that need to be passed to the chain respectively.
-- The `templates` directory contains a generator and normalizer directory which hold the generator and normalizer prompts 
+- The `templates` directory contains a generator and normalizer directory which hold the generator and normalizer prompts
 
 By default, we provide three different templates ```[name, address, price]``` which could be used to generate/normalize synthetic data out of the box.
 
@@ -49,7 +54,7 @@ By default, we provide three different templates ```[name, address, price]``` wh
 fuxion can be used to generate synthetic data for rapid product testing amongst other use cases. For each generator template, we have a prompt that instructs the chain on what to do. Below is an example of what the `address.template` file looks like
 
 ```
-Generate a list of U.S. postal addresses separated by double newlines.  
+Generate a list of U.S. postal addresses separated by double newlines.
 
 Make them as realistic and diverse as possible.
 Include some company address, P.O. boxes, apartment complexes, etc.
@@ -64,32 +69,32 @@ List:
 
 * `{{few_shot}}` tells the chain to get few-shot examples provided in the examples folder.
 
-* `List` returns the results in a list 
+* `List` returns the results in a list
 
 > The same convention should be followed when creating subsequent templates for various data generation tasks.
 
-With that established, we show how to run the generator script from the terminal 
+With that established, we show how to run the generator script from the terminal
 
 ![](https://github.com/Tobiadefami/fuxion/blob/main/terminal_gifs/generator.gif)
 
-## Normalization 
+## Normalization
 
-It's often necessary to transform data into a standardized form before storing in a database. Using fuxion, you can make unstructured data useful by breaking it up into it's component parts and normalizing into a more structured form. Like the generator example, we have a normalization template that contains prompts that instructs the chain on how to achieve this. 
+It's often necessary to transform data into a standardized form before storing in a database. Using fuxion, you can make unstructured data useful by breaking it up into it's component parts and normalizing into a more structured form. Like the generator example, we have a normalization template that contains prompts that instructs the chain on how to achieve this.
 
-``` 
+```
 Format the following address as a list of python dictionaries of the form:
 [
-    { 
-        "house_number": int, 
-        "road": str, 
-        "unit": int, 
-        "unit_type": str, 
-        "po_box_number": int, 
-        "city": str, 
-        "state": str, 
-        "postcode": int 
+    {
+        "house_number": int,
+        "road": str,
+        "unit": int,
+        "unit_type": str,
+        "po_box_number": int,
+        "city": str,
+        "state": str,
+        "postcode": int
     }
-]. 
+].
 
 Use abbreviations for state and road type.
 Use short form zip codes.
@@ -111,10 +116,10 @@ You can run the normalizer by passing it the datatype (name of data to be genera
 ![](https://github.com/Tobiadefami/fuxion/blob/main/terminal_gifs/normalizer.gif)
 
 ## Pipelines
-We can train machine learning models on the combination of synthetically generated data and their normalized format. This is where we use `pipelines.py` 
+We can train machine learning models on the combination of synthetically generated data and their normalized format. This is where we use `pipelines.py`
 
 ```bash
-Usage: pipelines.py [OPTIONS] DATATYPE                                                                                                               
+Usage: pipelines.py [OPTIONS] DATATYPE
 ╭─ Arguments ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ *    datatype      TEXT  [default: None] [required]                                                                                                                                                                                                      │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
@@ -127,7 +132,7 @@ Usage: pipelines.py [OPTIONS] DATATYPE
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-From the output above, the only required argument to be passed to `pipelines.py` is the `datatype`, which is just the name of the type of data you want to generate. Other optional arguments like `k` determines the number of samples to be generated and is set to `10` by default. 
+From the output above, the only required argument to be passed to `pipelines.py` is the `datatype`, which is just the name of the type of data you want to generate. Other optional arguments like `k` determines the number of samples to be generated and is set to `10` by default.
 
 Running:
 ```bash
@@ -135,6 +140,3 @@ python pipelines.py address --k 20 --dataset-name sample-address
 ```
 ![](https://github.com/Tobiadefami/fuxion/blob/main/terminal_gifs/pipeline.gif)
 Generates 20 samples of generated addresses with their normalized outputs strored in `sample-address.json`. Here is a [link](https://github.com/Tobiadefami/fuxion/blob/main/fuxion/datasets/sample-address.json) to the file
-
-
-

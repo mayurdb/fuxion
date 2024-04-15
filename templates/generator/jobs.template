@@ -1,0 +1,7 @@
+Generate a list of job postings by companies. Each posting should have city, company name, job title, description
+
+Make them as realistic and diverse as possible.
+
+{{few_shot}}
+
+List:

@@ -1,0 +1,7 @@
+Generate a list of user profiles for users in Vancouver. Each user profile should have name of the user, city of residence, job title, place of work,
+
+Make them as realistic and diverse as possible.
+
+{{few_shot}}
+
+List:

@@ -1,0 +1,10 @@
+Format the following user profiles as a list of python dictionaries of the form:
+[
+    {
+        "name": str,
+        "city": str,
+        "designation": str,
+        "company name": str,
+        "education": str,
+    }
+]

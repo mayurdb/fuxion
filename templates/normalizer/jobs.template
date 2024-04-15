@@ -1,0 +1,9 @@
+Format the following job posting as a list of python dictionaries of the form:
+[
+    {
+        "city": str,
+        "company name": str,
+        "job title": str,
+        "description": str,
+    }
+]
